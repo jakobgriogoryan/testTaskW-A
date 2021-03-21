@@ -13,13 +13,15 @@
                         <input type="text" class="form-control" v-model="item.body" name="body">
                     </div>
                     <div class="form-group">
-                        <label>Attachment</label>
+                        <p>Attachment </p>
+                        <label v-if="item.attachment">Downloaded: {{ item.attachment }}</label>
                         <input type="file" class="form-control" name="attachment"
                                @change="handleFileUpload($event.target.files)"/>
                     </div>
                     <div class="form-group">
                         <label>Expiration date</label>
-                        <input type="datetime-local" class="form-control" v-model="item.expiration_date" name="expiration_date">
+                        <input type="datetime-local" class="form-control" v-model="item.expiration_date"
+                               name="expiration_date">
                     </div>
                     <button type="submit" class="btn btn-primary">Update</button>
                 </form>
@@ -30,6 +32,7 @@
 
 <script>
 import {mapGetters} from "vuex";
+import moment from 'moment';
 
 export default {
     name: "EditItem",
@@ -43,8 +46,11 @@ export default {
             'item',
         ]),
     },
-    async created() {
+    async mounted() {
         await this.$store.dispatch('fetchItem', this.$route.params.id);
+        let dateTime = moment(this.item.expiration_date).format()
+        dateTime = dateTime.slice(0, 16)
+        this.item.expiration_date = dateTime
     },
     methods: {
         async updateItem() {
