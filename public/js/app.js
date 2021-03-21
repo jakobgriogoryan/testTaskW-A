@@ -2075,9 +2075,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)(['item'])),
-  mounted: function mounted() {
-    console.log(this.item);
-  },
   created: function created() {
     var _this = this;
 
@@ -2443,11 +2440,12 @@ vue__WEBPACK_IMPORTED_MODULE_1__.default.use(vuex__WEBPACK_IMPORTED_MODULE_2__.d
       state.items.push(item.item);
     },
     SET_ITEM: function SET_ITEM(state, item) {
-      state.item = item;
+      return state.item = item;
     },
-    UPDATE_ITEM: function UPDATE_ITEM(state, item) {// state.items = state.items.map((singleItem) => {
-      //     return (item.id === singleItem.id) ? item : singleItem;
-      // });
+    UPDATE_ITEM: function UPDATE_ITEM(state, item) {
+      state.items = state.items.map(function (singleItem) {
+        return item.id === singleItem.id ? item : singleItem;
+      });
     },
     REMOVE_ITEM: function REMOVE_ITEM(state, item) {
       var index = state.items.findIndex(function (data) {
@@ -2498,10 +2496,15 @@ vue__WEBPACK_IMPORTED_MODULE_1__.default.use(vuex__WEBPACK_IMPORTED_MODULE_2__.d
                 commit = _ref2.commit;
                 _context2.next = 3;
                 return axios.get("/api/items/".concat(payload)).then(function (response) {
-                  commit('SET_ITEM', response.data);
+                  commit('SET_ITEM', response.data.item);
+                })["catch"](function (err) {
+                  console.log(err);
                 });
 
               case 3:
+                ;
+
+              case 4:
               case "end":
                 return _context2.stop();
             }
@@ -2510,8 +2513,6 @@ vue__WEBPACK_IMPORTED_MODULE_1__.default.use(vuex__WEBPACK_IMPORTED_MODULE_2__.d
       }))();
     },
     storeItem: function storeItem(_ref3, payload) {
-      var _this = this;
-
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
         var commit;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
@@ -2524,8 +2525,6 @@ vue__WEBPACK_IMPORTED_MODULE_1__.default.use(vuex__WEBPACK_IMPORTED_MODULE_2__.d
                   return commit('ADD_ITEM', response.data);
                 })["catch"](function (err) {
                   return console.log(err);
-                })["finally"](function () {
-                  return _this.loading = false;
                 });
 
               case 3:

@@ -16,12 +16,12 @@ export default new Vuex.Store({
             state.items.push(item.item);
         },
         SET_ITEM(state, item) {
-            state.item = item;
+            return state.item = item;
         },
         UPDATE_ITEM(state, item) {
-            // state.items = state.items.map((singleItem) => {
-            //     return (item.id === singleItem.id) ? item : singleItem;
-            // });
+            state.items = state.items.map((singleItem) => {
+                return (item.id === singleItem.id) ? item : singleItem;
+            });
         },
         REMOVE_ITEM(state, item) {
             let index = state.items.findIndex(data => data.id == item)
@@ -47,8 +47,11 @@ export default new Vuex.Store({
             await axios
                 .get(`/api/items/${payload}`)
                 .then((response) => {
-                    commit('SET_ITEM', response.data)
-                });
+                    commit('SET_ITEM', response.data.item)
+                })
+                .catch(err => {
+                    console.log(err)
+                });;
         },
         async storeItem({commit}, payload) {
             await axios
@@ -57,7 +60,6 @@ export default new Vuex.Store({
                     commit('ADD_ITEM', response.data)
                 ))
                 .catch(err => console.log(err))
-                .finally(() => this.loading = false)
         },
         async updateItem({commit}, payload) {
             await axios
