@@ -13,6 +13,7 @@ class Item extends Model
         'title',
         'body',
         'attachment',
+        'attachment_path',
         'expiration_date',
     ];
 }

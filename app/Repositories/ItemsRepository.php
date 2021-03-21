@@ -30,7 +30,8 @@ class ItemsRepository implements ItemsInterface
         if ($request->hasFile('attachment')) {
             $file = $request->file('attachment');
             $filename = 'attachment-' . time() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('attachments', $filename);
+            $file->storeAs('/public/attachments', $filename);
+            $img_path = url('storage/attachments/'.$filename);
         }
         if ($request->has('expiration_date')) {
             $dateTime = Carbon::parse($request->input('expiration_date'));
@@ -41,6 +42,7 @@ class ItemsRepository implements ItemsInterface
             'title' => $request->input('title'),
             'body' => $request->input('body'),
             'attachment' => $filename ?? null,
+            'attachment_path' => $img_path ?? null,
             'expiration_date' => $expirationDate ?? null,
         ]);
 
@@ -73,13 +75,15 @@ class ItemsRepository implements ItemsInterface
         if ($request->hasFile('attachment')) {
             $file = $request->file('attachment');
             $filename = 'attachment-' . time() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('attachments', $filename);
+            $file->storeAs('/public/attachments', $filename);
+            $img_path = url('storage/attachments/'.$filename);
         }
 
         $item->update([
             'title' => $request->input('title'),
             'body' => $request->input('body'),
             'attachment' => $filename ?? $item->attachment,
+            'attachment_path' => $img_path ?? $item->attachment_path,
             'expiration_date' => $request->input('expiration_date') ?? $item->expiration_date,
         ]);
 

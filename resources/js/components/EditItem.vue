@@ -15,6 +15,7 @@
                     <div class="form-group">
                         <p>Attachment </p>
                         <label v-if="item.attachment">Downloaded: {{ item.attachment }}</label>
+                        <img :src="item.attachment_path" alt="" height="95px" width="95px" class="img-attachment">
                         <input type="file" class="form-control" name="attachment"
                                @change="handleFileUpload($event.target.files)"/>
                     </div>
@@ -76,5 +77,9 @@ export default {
 </script>
 
 <style scoped>
-
+.img-attachment {
+    border-radius: 5px;
+    margin: 10px;
+    margin-top: unset;
+}
 </style>
