@@ -7,14 +7,25 @@
                     <router-link to="/create" class="nav-item nav-link">Create Item</router-link>
                 </div>
             </div>
+            <button type="button" class="btn btn-primary" @click="logout">Logout</button>
         </nav>
-
-        <router-view> </router-view>
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
-    export default {
-        name: 'App',
+export default {
+    name: 'App',
+    methods: {
+        logout() {
+            axios.post('/logout')
+                .then(response => {
+                    this.$router.push("/login")
+                    location.reload();
+                }).catch(error => {
+                location.reload();
+            });
+        }
     }
+}
 </script>

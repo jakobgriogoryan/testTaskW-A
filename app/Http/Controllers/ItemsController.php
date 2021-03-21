@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Item\StoreRequest;
 use App\Http\Requests\Item\UpdateRequest;
 use App\Models\Item;
-use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class ItemsController extends Controller
 {
@@ -33,12 +33,16 @@ class ItemsController extends Controller
             $filename = 'attachment-' . time() . '.' . $file->getClientOriginalExtension();
             $file->storeAs('attachments', $filename);
         }
+        if ($request->has('expiration_date')) {
+            $dateTime = Carbon::parse($request->input('expiration_date'));
+            $expirationDate = $dateTime->format('Y-m-d H:i:s');
+        }
 
         $item = Item::create([
             'title' => $request->input('title'),
             'body' => $request->input('body'),
             'attachment' => $filename ?? null,
-            'expiration_date' => $request->input('expiration_date') ?? null,
+            'expiration_date' => $expirationDate ?? null,
         ]);
 
         $item->save();

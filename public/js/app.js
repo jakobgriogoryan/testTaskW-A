@@ -1872,7 +1872,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'App'
+  name: 'App',
+  methods: {
+    logout: function logout() {
+      var _this = this;
+
+      axios.post('/logout').then(function (response) {
+        _this.$router.push("/login");
+
+        location.reload();
+      })["catch"](function (error) {
+        location.reload();
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -1903,6 +1916,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -2061,6 +2075,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)(['item'])),
+  mounted: function mounted() {
+    console.log(this.item);
+  },
   created: function created() {
     var _this = this;
 
@@ -2366,6 +2383,10 @@ vue__WEBPACK_IMPORTED_MODULE_0__.default.use(vue_router__WEBPACK_IMPORTED_MODULE
 
 
 var routes = [{
+  name: 'home',
+  path: '/home',
+  component: _components_ToDoList__WEBPACK_IMPORTED_MODULE_2__.default
+}, {
   name: 'home',
   path: '/',
   component: _components_ToDoList__WEBPACK_IMPORTED_MODULE_2__.default
@@ -39050,7 +39071,17 @@ var render = function() {
               ],
               1
             )
-          ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-primary",
+              attrs: { type: "button" },
+              on: { click: _vm.logout }
+            },
+            [_vm._v("Logout")]
+          )
         ]
       ),
       _vm._v(" "),
@@ -39082,11 +39113,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("h3", { staticClass: "text-center" }, [_vm._v("Create ToDo item")]),
-    _vm._v(" "),
+  return _c("div", { staticClass: "container-fluid" }, [
     _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-6" }, [
+      _c("h3", { staticClass: "text-center" }, [_vm._v("Create ToDo item")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-10 mx-auto" }, [
         _c(
           "form",
           {
@@ -39177,7 +39208,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control",
-                attrs: { type: "date", name: "expiration_date" },
+                attrs: { type: "datetime-local", name: "expiration_date" },
                 domProps: { value: _vm.item.expiration_date },
                 on: {
                   input: function($event) {
@@ -39224,11 +39255,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("h3", { staticClass: "text-center" }, [_vm._v("Edit ToDo Item")]),
-    _vm._v(" "),
+  return _c("div", { staticClass: "container-fluid" }, [
     _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-6" }, [
+      _c("h3", { staticClass: "text-center" }, [_vm._v("Edit ToDo Item")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-10 mx-auto" }, [
         _c(
           "form",
           {
@@ -39319,7 +39350,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control",
-                attrs: { type: "date", name: "expiration_date" },
+                attrs: { type: "datetime-local", name: "expiration_date" },
                 domProps: { value: _vm.item.expiration_date },
                 on: {
                   input: function($event) {

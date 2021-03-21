@@ -10,7 +10,7 @@
     <title>{{ config('app.name', 'W&A') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ mix('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
             crossorigin="anonymous"></script>
@@ -31,7 +31,7 @@
 </head>
 
 <body>
-    <div id="app">
+    <div>
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">

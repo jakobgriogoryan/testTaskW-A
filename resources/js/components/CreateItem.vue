@@ -1,8 +1,8 @@
 <template>
-    <div>
-        <h3 class="text-center">Create ToDo item</h3>
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6">
+            <h3 class="text-center">Create ToDo item</h3>
+            <div class="col-10 mx-auto">
                 <form @submit.prevent="addItem">
                     <div class="form-group">
                         <label>Title</label>
@@ -19,7 +19,8 @@
                     </div>
                     <div class="form-group">
                         <label>Expiration date</label>
-                        <input type="date" class="form-control" name="expiration_date" v-model="item.expiration_date">
+                        <input type="datetime-local" class="form-control" name="expiration_date"
+                               v-model="item.expiration_date">
                     </div>
                     <button type="submit" class="btn btn-primary">Create</button>
                 </form>

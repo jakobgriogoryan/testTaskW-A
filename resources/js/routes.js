@@ -10,6 +10,11 @@ import EditItem from "./components/EditItem";
 const routes = [
     {
         name: 'home',
+        path: '/home',
+        component: ToDoList
+    },
+    {
+        name: 'home',
         path: '/',
         component: ToDoList
     },
